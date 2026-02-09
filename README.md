@@ -1,4 +1,4 @@
-﻿# SettingsKit
+﻿﻿# SettingsKit
 
 **SettingsKit** is a lightweight, MVVM‑friendly, version‑tolerant JSON settings library for .NET applications.  
 It provides automatic persistence, schema migration, backup/restore, and optional encryption for sensitive fields — all with a clean, strongly‑typed API.
@@ -12,21 +12,19 @@ Perfect for WPF, WinUI, Avalonia, MAUI, console apps, and any .NET project that 
 ```
 SettingsKit/
 │
-├── src/
-│   └── SettingsKit/
-│       ├── Core/
-│       │   ├── ObservableObject.cs
-│       │   ├── SettingsService.cs
-│       │   ├── ISettingsMigration.cs
-│       │
-│       ├── Security/
-│       │   ├── EncryptedAttribute.cs
-│       │   ├── EncryptionHelper.cs
-│       │
-│       ├── SettingsKit.csproj
+├── SettingsKit/
+│   ├── Core/
+│   │   ├── ObservableObject.cs
+│   │   ├── SettingsService.cs
+│   │   ├── ISettingsMigration.cs
+│   │
+│   ├── Security/
+│   │   ├── EncryptedAttribute.cs
+│   │   ├── EncryptionHelper.cs
+│   │
+│   ├── SettingsKit.csproj
 │
-├── examples/
-│   └── ConsoleDemo/
+├── ConsoleDemo/
 │       ├── Program.cs
 │       ├── Settings/
 │       │   ├── AppSettings.cs
@@ -36,7 +34,7 @@ SettingsKit/
 │       │   
 │       ├── ConsoleDemo.csproj
 │       
-│   └── WpfDemo/
+├── WpfDemo/
 │       ├── App.xaml
 │       ├── App.xaml.cs
 │       ├── MainWindow.xaml
@@ -227,33 +225,3 @@ Key features include:
 - Automatic backup & restore
 - Optional encryption for sensitive data
 - Zero dependencies (pure .NET)
-
-```
-
----
-
-# 🎨 Branding Guidance (optional but helpful)
-
-If you want SettingsKit to feel like a polished product:
-
-- **Logo idea:** a simple gear + document icon  
-- **Color palette:** cobalt blue (#2962FF), charcoal (#263238), white  
-- **Tagline:** “Reliable settings for modern .NET apps.”
-
----
-
-# 🎁 Want me to generate a full GitHub repository structure?
-
-I can prepare:
-
-- `README.md`  
-- `LICENSE` (MIT)  
-- `CHANGELOG.md`  
-- `CONTRIBUTING.md`  
-- `Directory.Build.props`  
-- Example settings models  
-- Example WPF demo app  
-- GitHub Actions CI for NuGet publishing  
-
-Just say the word and I’ll assemble the whole repo layout.
-```
