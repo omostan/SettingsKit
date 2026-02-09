@@ -52,3 +52,15 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+.github
+ConsoleDemo/bin
+ConsoleDemo/obj
+SettingsKit/bin
+SettingsKit/obj
+WpfDemo/bin
+WpfDemo/obj
+GITHUB_ACTIONS_SUMMARY.md
+GITHUB_ACTIONS_PUBLISH_GUIDE.md
+NUGET_PUSH_GUIDE.md
+QUICK_NUGET_FIX.md
+SETAPIKEY_COMMAND.md
