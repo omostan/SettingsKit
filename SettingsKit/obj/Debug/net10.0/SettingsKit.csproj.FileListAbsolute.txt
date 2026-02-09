@@ -1,0 +1,12 @@
+D:\Tutorials\SettingsKit\SettingsKit\bin\Debug\net10.0\SettingsKit.deps.json
+D:\Tutorials\SettingsKit\SettingsKit\bin\Debug\net10.0\SettingsKit.dll
+D:\Tutorials\SettingsKit\SettingsKit\bin\Debug\net10.0\SettingsKit.pdb
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.csproj.AssemblyReference.cache
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.GeneratedMSBuildEditorConfig.editorconfig
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.AssemblyInfoInputs.cache
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.AssemblyInfo.cs
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.csproj.CoreCompileInputs.cache
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.dll
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\refint\SettingsKit.dll
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\SettingsKit.pdb
+D:\Tutorials\SettingsKit\SettingsKit\obj\Debug\net10.0\ref\SettingsKit.dll

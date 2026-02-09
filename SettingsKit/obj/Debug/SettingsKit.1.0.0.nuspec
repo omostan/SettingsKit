@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SettingsKit</id>
+    <version>1.0.0</version>
+    <title>SettingsKit</title>
+    <authors>Stanley Omoregie</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <projectUrl>https://github.com/omostan/SettingsKit/SettingsKit</projectUrl>
+    <description>Version-tolerant, MVVM-friendly JSON settings library with auto-save, migration, backup, and encryption.</description>
+    <copyright>Copyright (c) 2025-2026 SettingsKit Contributors</copyright>
+    <tags>wpf settings json mvvm configuration encryption</tags>
+    <repository type="git" url="https://github.com/your/repo" />
+    <dependencies>
+      <group targetFramework="net10.0">
+        <dependency id="CrossPlatformProtectedData" version="1.0.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Tutorials\SettingsKit\SettingsKit\bin\Debug\net10.0\SettingsKit.dll" target="lib\net10.0\SettingsKit.dll" />
+    <file src="D:\Tutorials\SettingsKit\icon.png" target="icon.png" />
+  </files>
+</package>

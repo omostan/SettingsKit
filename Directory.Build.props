@@ -1,0 +1,40 @@
+<Project>
+  <!-- Common build properties for all projects in the SettingsKit solution -->
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Authors>SettingsKit Contributors</Authors>
+    <Company>SettingsKit</Company>
+    <Product>SettingsKit</Product>
+    <Description>Strongly‑typed, MVVM‑friendly JSON settings library with auto‑save, migration, backup, and encryption.</Description>
+    <PackageProjectUrl>https://github.com/SettingsKit/SettingsKit</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/SettingsKit/SettingsKit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) 2025-2026 SettingsKit Contributors</Copyright>
+    <License>MIT</License>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Debug Configuration -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <!-- Release Configuration -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+</Project>
+

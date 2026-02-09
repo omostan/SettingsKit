@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsKit", "SettingsKit\SettingsKit.csproj", "{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2B244794-B6D2-45F8-B3C5-3F255BF13F77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{24DD2EA5-4A59-484D-9B56-194EE0328013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDemo", "WpfDemo\WpfDemo.csproj", "{782799EF-7122-42C0-9691-0C76333DFC37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDemo", "ConsoleDemo\ConsoleDemo.csproj", "{4A2B73B0-4364-4C3F-8501-27C4F436CFD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{782799EF-7122-42C0-9691-0C76333DFC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{782799EF-7122-42C0-9691-0C76333DFC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{782799EF-7122-42C0-9691-0C76333DFC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{782799EF-7122-42C0-9691-0C76333DFC37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A2B73B0-4364-4C3F-8501-27C4F436CFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A2B73B0-4364-4C3F-8501-27C4F436CFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A2B73B0-4364-4C3F-8501-27C4F436CFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A2B73B0-4364-4C3F-8501-27C4F436CFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{90E0F5C7-A6DB-4106-9DE2-CC42F1ECFBC1} = {2B244794-B6D2-45F8-B3C5-3F255BF13F77}
+		{782799EF-7122-42C0-9691-0C76333DFC37} = {24DD2EA5-4A59-484D-9B56-194EE0328013}
+		{4A2B73B0-4364-4C3F-8501-27C4F436CFD5} = {24DD2EA5-4A59-484D-9B56-194EE0328013}
+	EndGlobalSection
+EndGlobal

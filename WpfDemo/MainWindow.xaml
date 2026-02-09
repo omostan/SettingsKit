@@ -1,0 +1,70 @@
+﻿<Window x:Class="WpfDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:WpfDemo.ViewModels"
+        xmlns:helpers="clr-namespace:WpfDemo.Helpers"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        Title="SettingsKit WpfDemo"
+        Top="{Binding Path=UiPos.WindowTop, Mode=TwoWay}"
+        Left="{Binding Path=UiPos.WindowLeft, Mode=TwoWay}"
+        Width="{Binding Path=UiSet.WindowWidth, Mode=TwoWay}"
+        Height="{Binding Path=UiSet.WindowHeight, Mode=TwoWay}">
+    <StackPanel Margin="20" VerticalAlignment="Center">
+        <TextBlock Text="Theme:"/>
+        <TextBox Text="{Binding Path=UiSet.Theme, Mode=TwoWay}" Margin="0,0,0,10"/>
+
+        <TextBlock Text="API Key (encrypted):"/>
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- PasswordBox shown when password is hidden -->
+            <PasswordBox Grid.Column="0" 
+                         helpers:PasswordBoxHelper.BindPassword="True" 
+                         helpers:PasswordBoxHelper.BoundPassword="{Binding Path=ApiKeyPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <PasswordBox.Style>
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPasswordVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </PasswordBox.Style>
+            </PasswordBox>
+            
+            <!-- TextBox shown when password is visible -->
+            <TextBox Grid.Column="0" 
+                     Text="{Binding Path=ApiKeyPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPasswordVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            
+            <!-- Preview Button -->
+            <Button Grid.Column="1" 
+                    Command="{Binding TogglePasswordVisibilityCommand}"
+                    Width="30" 
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Content="👁"
+                    ToolTip="Toggle password visibility"
+                    FontSize="16"/>
+        </Grid>
+
+        <Button Content="Save API Key" Command="{Binding Path=SaveApiKeyCommand}" Width="120"/>
+    </StackPanel>
+</Window>
