@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NUGET_PUSH_GUIDE.md = NUGET_PUSH_GUIDE.md
 		QUICK_NUGET_FIX.md = QUICK_NUGET_FIX.md
 		RELEASE_v1.0.0_NOTES.md = RELEASE_v1.0.0_NOTES.md
+		RELEASE_v1.0.2_NOTES.md = RELEASE_v1.0.2_NOTES.md
 	EndProjectSection
 EndProject
 Global

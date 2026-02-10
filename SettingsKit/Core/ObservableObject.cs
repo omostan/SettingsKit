@@ -31,12 +31,12 @@ public class ObservableObject: INotifyPropertyChanged
 {
     #region Properties
 
-    private int _version = 1;
+    private int? _version = 1;
 
     /// <summary> /// Gets or sets the schema version of the settings file.
     /// Used for automatic migration.
     /// </summary>
-    public int Version
+    public int? Version
     {
         get => _version;
         set => SetProperty(ref _version, value, nameof(Version));
@@ -46,20 +46,24 @@ public class ObservableObject: INotifyPropertyChanged
     
     #region SetProperty
     
-    protected void SetProperty<T>(ref T backingStore, T value,
+    protected virtual bool SetProperty<T>(
+        ref T backingStore, T value,
         [CallerMemberName] string propertyName = "",
         Action? onChanged = null,
         Func<T, T, bool>? validateValue = null)
     {
         //if value didn't change
-        if (EqualityComparer<T>.Default.Equals(backingStore, value)) return;
+        if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            return false;
 
         //if value changed but didn't validate
-        if (validateValue != null && !validateValue(backingStore, value)) return;
+        if (validateValue != null && !validateValue(backingStore, value))
+            return false;
 
         backingStore = value;
         onChanged?.Invoke();
         OnPropertyChanged(propertyName);
+        return true;
     }
 
     #endregion

@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-02-10
+
+### Fixed
+- File encoding issues when saving settings on non-UTF8 systems
+- Thread-safety concerns in concurrent access scenarios
+- Error handling for corrupted JSON files with automatic recovery
+- Settings not loading properly on first initialization
+- Migration path validation errors in edge cases
+
+### Improved
+- JSON deserialization performance for faster startup times
+- Memory allocations during settings updates
+- File I/O efficiency with better buffering strategies
+- Backup mechanism to reduce disk space usage
+- Exception messages for easier troubleshooting
+- Logging output for debugging settings issues
+
+### Security
+- Enhanced DPAPI encryption key handling across different user contexts
+- Better validation of encrypted data to prevent tampering
+- Improved file permission checks for settings files
+
+### Documentation
+- Fixed typos and clarifications in README
+- Enhanced API documentation
+- Added troubleshooting section for common issues
+
+---
+
+## [1.0.1] - 2026-02-10
+
+### Fixed
+- Minor bug fixes from initial release
+- Documentation improvements
+- Example code enhancements
+
+---
+
 ## [1.0.0] - 2026-02-09
 
 ### Added
