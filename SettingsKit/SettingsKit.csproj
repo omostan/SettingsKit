@@ -11,7 +11,7 @@
         <Company>SettingsKit</Company>
         <Description>Version-tolerant, MVVM-friendly JSON settings library with auto-save, migration, backup, and encryption.</Description>
         <PackageTags>wpf settings json mvvm configuration encryption</PackageTags>
-        <RepositoryUrl>https://github.com/your/repo</RepositoryUrl>
+        <RepositoryUrl>https://github.com/omostan/SettingsKit</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Title>SettingsKit</Title>
         <PackageIcon>icon.png</PackageIcon>
