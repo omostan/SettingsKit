@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Omostan.SettingsKit</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>Stanley Omoregie</Authors>
         <Company>SettingsKit</Company>
         <Description>Version-tolerant, MVVM-friendly JSON settings library with auto-save, migration, backup, and encryption.</Description>
