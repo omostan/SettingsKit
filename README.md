@@ -189,12 +189,12 @@ If the main file becomes corrupted, it restores from backup.
 Install via NuGet:
 
 ```bash
-Install-Package SettingsKit.Settings
+Install-Package Omostan.SettingsKit
 ```
 or .NET CLI:
 
 ```bash
-dotnet add package SettingsKit.Settings
+dotnet add package Omostan.SettingsKit
 ```
 
 🤝 Contributing
