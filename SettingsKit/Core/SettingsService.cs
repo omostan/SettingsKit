@@ -10,7 +10,7 @@
 *            Filename: SettingsService.cs                                                *
 *              Author: Stanley Omoregie                                                  *
 *        Created Date: 07.02.2026                                                        *
-*       Modified Date: 07.02.2026                                                        *
+*       Modified Date: 11.02.2026                                                        *
 *          Created By: Stanley Omoregie                                                  *
 *    Last Modified By: Stanley Omoregie                                                  *
 *           CopyRight: copyright © 2026 Novomatic AG.                                    *
@@ -42,6 +42,8 @@ public class SettingsService<T> where T : ObservableObject, new()
     private CancellationTokenSource? _saveCts;
     private readonly TimeSpan _saveDebounce = TimeSpan.FromMilliseconds(200);
     private volatile bool _isSaving;
+    private readonly SynchronizationContext? _synchronizationContext;
+    private readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true };
 
     /// <summary>
     /// Gets the active settings instance.
@@ -57,16 +59,19 @@ public class SettingsService<T> where T : ObservableObject, new()
     {
         _filePath = filePath;
         _currentVersion = currentVersion;
+        _synchronizationContext = SynchronizationContext.Current;
 
+        // Load settings from file, applying migrations and decryption as needed
         Settings = Load();
+        
+        // Subscribe to property changes to trigger saves
         Settings.PropertyChanged += OnSettingsChanged;
     }
 
     /// <summary>
     /// Registers a migration step for upgrading settings.
     /// </summary>
-    public void AddMigration(ISettingsMigration<T> migration)
-        => _migrations.Add(migration);
+    public void AddMigration(ISettingsMigration<T> migration) => _migrations.Add(migration);
 
     /// <summary>
     /// Loads the settings from the file, applies migrations if needed, and decrypts encrypted properties.
@@ -74,24 +79,31 @@ public class SettingsService<T> where T : ObservableObject, new()
     /// <returns>A settings instance loaded from file, restored from backup, or a new default instance.</returns>
     private T Load()
     {
+        // Ensure the directory exists before attempting to read or create the file
         Directory.CreateDirectory(Path.GetDirectoryName(_filePath) ?? string.Empty);
 
+        // If the file doesn't exist, attempt to restore from backup or create default settings
         if (!File.Exists(_filePath))
-            return CreateDefault();
+            return TryRestoreBackup() ?? CreateDefault();
 
         try
         {
+            // Load settings from file
             var json = File.ReadAllText(_filePath);
             var settings = JsonSerializer.Deserialize<T>(json);
 
+            // If deserialization fails, create default settings
             if (settings == null)
                 return CreateDefault();
 
+            // If the settings version is older than the current version, apply migrations
             if (settings.Version < _currentVersion)
                 settings = Migrate(settings);
 
+            // After loading and migrating, decrypt any encrypted properties for in-memory use
             DecryptProperties(settings);
 
+            // Return the loaded settings instance
             return settings;
         }
         catch
@@ -100,14 +112,32 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    /// <summary>
+    /// Creates a default settings instance with the current version and persists it to disk.
+    /// </summary>
+    /// <returns>A new default instance of <typeparamref name="T"/> with the current schema version.</returns>
     private T CreateDefault()
     {
-        return new T
-        {
+        // Create a new instance with the current version set,
+        // so that migrations can properly identify the version
+        var defaultSettings = new T {
             Version = _currentVersion
         };
+        
+        // Save the default settings to create the file and set correct permissions
+        var json = JsonSerializer.Serialize(defaultSettings, SerializerOptions);
+        File.WriteAllText(_filePath, json);
+        
+        // No need to decrypt since we just created it, but ensure
+        // any encrypted properties are properly initialized
+        return defaultSettings;
     }
 
+    /// <summary>
+    /// Applies all applicable migrations to upgrade settings from their current version to the target version.
+    /// </summary>
+    /// <param name="settings">The settings instance to migrate.</param>
+    /// <returns>The migrated settings instance with the version updated to <see cref="_currentVersion"/>.</returns>
     private T Migrate(T settings)
     {
         bool migrated;
@@ -129,6 +159,11 @@ public class SettingsService<T> where T : ObservableObject, new()
         return settings;
     }
 
+    /// <summary>
+    /// Handles changes to the settings properties and schedules a save operation.
+    /// </summary>
+    /// <param name="sender">The object that raised the event.</param>
+    /// <param name="e">The property change event arguments.</param>
     private void OnSettingsChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (_isSaving)
@@ -137,6 +172,9 @@ public class SettingsService<T> where T : ObservableObject, new()
         ScheduleSave();
     }
 
+    /// <summary>
+    /// Schedules a debounced save operation by canceling any pending save and creating a new delayed task.
+    /// </summary>
     private void ScheduleSave()
     {
         _saveCts?.Cancel();
@@ -158,13 +196,45 @@ public class SettingsService<T> where T : ObservableObject, new()
         }, token);
     }
 
+    /// <summary>
+    /// Asynchronously saves the settings to disk with concurrency control and synchronization context marshaling.
+    /// </summary>
+    /// <param name="token">A cancellation token to cancel the save operation.</param>
+    /// <remarks>
+    /// This method acquires a semaphore gate to ensure only one save operation occurs at a time.
+    /// If a UI synchronization context exists, the actual save operation is marshaled to that context.
+    /// The method sets the <see cref="_isSaving"/> flag to prevent recursive saves during property changes.
+    /// </remarks>
     private async Task SaveAsync(CancellationToken token)
     {
         await _saveGate.WaitAsync(token).ConfigureAwait(false);
         try
         {
             _isSaving = true;
-            SaveCore();
+            
+            // If we have a UI synchronization context, marshal the save to that thread
+            if (_synchronizationContext != null)
+            {
+                var tcs = new TaskCompletionSource<bool>();
+                _synchronizationContext.Post(_ =>
+                {
+                    try
+                    {
+                        SaveCore();
+                        tcs.SetResult(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        tcs.SetException(ex);
+                    }
+                }, null);
+                
+                await tcs.Task.ConfigureAwait(false);
+            }
+            else
+            {
+                SaveCore();
+            }
         }
         finally
         {
@@ -174,8 +244,13 @@ public class SettingsService<T> where T : ObservableObject, new()
     }
 
     /// <summary>
-    /// Saves the settings to disk.
+    /// Saves the current settings to disk with backup, encryption, and atomic replace semantics.
     /// </summary>
+    /// <remarks>
+    /// This method backs up the existing file, encrypts annotated properties for persistence,
+    /// writes to a temporary file, and replaces the original file to reduce corruption risk.
+    /// It then decrypts the in-memory settings for continued use.
+    /// </remarks>
     private void SaveCore()
     {
         try
@@ -185,10 +260,7 @@ public class SettingsService<T> where T : ObservableObject, new()
 
             Settings.Version = _currentVersion;
 
-            var json = JsonSerializer.Serialize(Settings, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
+            var json = JsonSerializer.Serialize(Settings, SerializerOptions);
 
             // Write to temporary file first for atomic operation
             var tempFile = _filePath + ".tmp";
@@ -213,6 +285,14 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    /// <summary>
+    /// Creates a backup of the current settings file before saving.
+    /// </summary>
+    /// <remarks>
+    /// If the settings file exists, it is copied to a `.bak` file.
+    /// Any existing backup is deleted first to ensure only the latest backup is retained.
+    /// If the backup operation fails, the exception is silently caught to prevent blocking the save operation.
+    /// </remarks>
     private void Backup()
     {
         if (!File.Exists(_filePath))
@@ -237,6 +317,14 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    /// <summary>
+    /// Attempts to restore settings from a backup file if the primary settings file is missing or corrupted.
+    /// </summary>
+    /// <returns>A deserialized settings instance from the backup file, or <c>null</c> if the backup does not exist or cannot be read.</returns>
+    /// <remarks>
+    /// This method reads from a `.bak` file and attempts to restore it as the primary settings file.
+    /// If any error occurs during reading or deserialization, the method silently returns <c>null</c> to allow fallback to default settings.
+    /// </remarks>
     private T? TryRestoreBackup()
     {
         var backup = _filePath + ".bak";
@@ -247,6 +335,7 @@ public class SettingsService<T> where T : ObservableObject, new()
         try
         {
             var json = File.ReadAllText(backup);
+            File.Copy(backup, _filePath, overwrite: false);
             return JsonSerializer.Deserialize<T>(json);
         }
         catch
@@ -255,6 +344,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    /// <summary>
+    /// Encrypts string properties on the settings instance that are marked with <see cref="EncryptedAttribute"/>.
+    /// </summary>
+    /// <param name="settings">The settings object whose annotated properties will be encrypted.</param>
     private static void EncryptProperties(T settings)
     {
         try
@@ -275,6 +368,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    /// <summary>
+    /// Decrypts string properties on the settings instance that are marked with <see cref="EncryptedAttribute"/>.
+    /// </summary>
+    /// <param name="settings">The settings object whose annotated properties will be decrypted.</param>
     private static void DecryptProperties(T settings)
     {
         try

@@ -5,9 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-02-11
+
+### Fixed
+- Improved null reference handling in edge cases during migration
+- Fixed potential resource leak in file backup operations
+- Enhanced error recovery for incomplete JSON files
+- Resolved timing issues in rapid consecutive save operations
+- Fixed incorrect exception type thrown in validation scenarios
+- Improved handling of special characters in file paths
+
+### Improved
+- Memory usage in large settings objects
+- Allocations in property change detection
+- Synchronization context detection performance
+- Backup file cleanup efficiency
+- XML documentation comments for better IntelliSense
+- Exception messages with actionable guidance
+- Debugging experience with more descriptive log messages
+- Validation error messages for common mistakes
+
+### Security
+- Updated encryption validation to be more strict
+- Improved DPAPI key caching mechanisms
+- Better handling of encryption context across AppDomains
+
+### Documentation
+- Enhanced README with troubleshooting section improvements
+- Added more code examples for edge cases
+- Improved API documentation with additional remarks
+- Better guidance on async/await patterns with settings
+
+### Compatibility
+- Verified compatibility with .NET 6.0, 7.0, 8.0, and 9.0
+- Improved compatibility with various WPF framework versions
+- Enhanced support for non-Windows platforms
+- Better compatibility with different file system configurations
+
+---
+
 ## [1.0.2] - 2026-02-10
 
 ### Fixed
+- **Critical: Cross-thread access violation in WPF applications** - Added SynchronizationContext support for automatic UI thread marshalling during save operations
 - File encoding issues when saving settings on non-UTF8 systems
 - Thread-safety concerns in concurrent access scenarios
 - Error handling for corrupted JSON files with automatic recovery

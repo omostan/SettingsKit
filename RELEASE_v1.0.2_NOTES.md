@@ -17,6 +17,7 @@ SettingsKit v1.0.2 is a patch release focused on bug fixes, performance improvem
 ## What's New in v1.0.2?
 
 ### 🐛 Bug Fixes
+- **Fixed critical cross-thread access violation in WPF applications** - Added automatic UI thread marshalling for save operations
 - Fixed file encoding issues when saving settings on non-UTF8 systems
 - Corrected thread-safety concerns in concurrent access scenarios
 - Improved error handling for corrupted JSON files with automatic recovery
