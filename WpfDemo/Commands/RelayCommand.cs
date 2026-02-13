@@ -13,7 +13,7 @@
 *       Modified Date: 09.02.2026                                                        *
 *          Created By: Stanley Omoregie                                                  *
 *    Last Modified By: Stanley Omoregie                                                  *
-*           CopyRight: copyright © 2026 Novomatic AG.                                    *
+*           CopyRight: copyright © 2026 Omotech Digital Solutions                        *
 *                  .oooO  Oooo.                                                          *
 *                  (   )  (   )                                                          *
 * ------------------\ (----) /---------------------------------------------------------- *
