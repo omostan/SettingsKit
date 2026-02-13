@@ -7,6 +7,21 @@ Perfect for WPF, WinUI, Avalonia, MAUI, console apps, and any .NET project that 
 
 ---
 
+## 📦 Installation
+
+Install via NuGet:
+
+```bash
+Install-Package Omostan.SettingsKit
+```
+or .NET CLI:
+
+```bash
+dotnet add package Omostan.SettingsKit
+```
+
+---
+
 ## Repository Structure
 
 ```
@@ -184,48 +199,6 @@ SettingsKit automatically encrypts on save and decrypts on load.
 SettingsKit automatically creates a .bak file before saving.
 If the main file becomes corrupted, it restores from backup.
 
-📦 Installation
-
-Install via NuGet:
-
-```bash
-Install-Package Omostan.SettingsKit
-```
-or .NET CLI:
-
-```bash
-dotnet add package Omostan.SettingsKit
-```
-
-🤝 Contributing
-
-Contributions and pull requests are welcome!
-If you have ideas for improvements or new features, feel free to open an issue.
-
-
-```
-# 📦 **NuGet Package Description (short + long)**
-
-### **Short Description (NuGet summary field)**
-> Strongly‑typed, MVVM‑friendly JSON settings library with auto‑save, migration, backup, and encryption.
-
-### **Long Description (NuGet description field)**
-```
-
-SettingsKit is a lightweight, strongly‑typed JSON settings library for .NET applications.
-It provides automatic persistence, MVVM‑friendly change tracking, version‑aware schema migration,
-backup/restore, and optional DPAPI encryption for sensitive fields.
-
-Ideal for WPF, WinUI, Avalonia, MAUI, and console applications that need reliable user or app settings.
-
-Key features include:
-- Strongly‑typed settings models
-- Auto‑save on property change
-- Version‑aware schema migration
-- Automatic backup & restore
-- Optional encryption for sensitive data
-- Zero dependencies (pure .NET)
-
 ## Build, Package and Publish to NuGet
 
 1. Build the project in Release mode.
@@ -244,3 +217,30 @@ cd /d/Tutorials/SettingsKit && dotnet clean SettingsKit/SettingsKit.csproj && do
 ```bash
 cd /d/Tutorials/SettingsKit && dotnet nuget push ./nupkg/Omostan.SettingsKit.1.0.x.nupkg -k YOUR_NUGET_API_KEY -s https://api.nuget.org/v3/index.json
 ```
+
+### 📦 **NuGet Package Description (Guide)**
+
+#### **Short Description (NuGet summary field)**
+
+Strongly‑typed, MVVM‑friendly JSON settings library with auto‑save, migration, backup, and encryption.
+
+#### **Long Description (NuGet description field)**
+
+SettingsKit is a lightweight, strongly‑typed JSON settings library for .NET applications.
+It provides automatic persistence, MVVM‑friendly change tracking, version‑aware schema migration,
+backup/restore, and optional DPAPI encryption for sensitive fields.
+
+Ideal for WPF, WinUI, Avalonia, MAUI, and console applications that need reliable user or app settings.
+
+Key features include:
+- Strongly‑typed settings models
+- Auto‑save on property change
+- Version‑aware schema migration
+- Automatic backup & restore
+- Optional encryption for sensitive data
+- Zero dependencies (pure .NET)
+
+## 🤝 Contributing
+
+Contributions and pull requests are welcome!
+If you have ideas for improvements or new features, feel free to open an issue.
