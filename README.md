@@ -1,7 +1,7 @@
 ﻿# SettingsKit Solution
 
-[![NuGet](https://img.shields.io/nuget/v/SettingsKit.svg)](https://www.nuget.org/packages/SettingsKit.Wpfkit/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/SettingsKit.svg)](https://www.nuget.org/packages/SettingsKit/)
+[![NuGet](https://img.shields.io/nuget/v/Omostan.SettingsKit.svg)](https://www.nuget.org/packages/Omostan.SettingsKit/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Omostan.SettingsKit.svg)](https://www.nuget.org/packages/Omostan.SettingsKit/)
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
