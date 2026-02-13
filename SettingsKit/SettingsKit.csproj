@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Omostan.SettingsKit</PackageId>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <Authors>Stanley Omoregie</Authors>
         <Company>SettingsKit</Company>
         <Description>Version-tolerant, MVVM-friendly JSON settings library with auto-save, migration, backup, and encryption.</Description>
@@ -17,7 +17,7 @@
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/omostan/SettingsKit</PackageProjectUrl>
-        <PackageReleaseNotes>https://github.com/omostan/SettingsKit/releases/tag/v1.0.4</PackageReleaseNotes>
+        <PackageReleaseNotes>https://github.com/omostan/SettingsKit/releases/tag/v1.0.5</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +27,7 @@
     <ItemGroup>
       <None Include="..\icon.png" Pack="true" PackagePath="\" />
       <None Include="..\README.md" Pack="true" PackagePath="\" />
-      <None Include="..\RELEASE_v1.0.4_NOTES.md" Pack="true" PackagePath="\" />
+      <None Include="..\RELEASE_v1.0.5_NOTES.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>

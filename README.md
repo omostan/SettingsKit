@@ -225,3 +225,22 @@ Key features include:
 - Automatic backup & restore
 - Optional encryption for sensitive data
 - Zero dependencies (pure .NET)
+
+## Build, Package and Publish to NuGet
+
+1. Build the project in Release mode.
+
+```bash
+cd /d/Tutorials/SettingsKit && dotnet build SettingsKit/SettingsKit.csproj -c Release
+```
+
+2. Create the NuGet package:
+
+```bash
+cd /d/Tutorials/SettingsKit && dotnet clean SettingsKit/SettingsKit.csproj && dotnet pack SettingsKit/SettingsKit.csproj -c Release --output ./nupkg
+```
+3. Publish to NuGet:
+
+```bash
+cd /d/Tutorials/SettingsKit && dotnet nuget push ./nupkg/Omostan.SettingsKit.1.0.x.nupkg -k YOUR_NUGET_API_KEY -s https://api.nuget.org/v3/index.json
+```
