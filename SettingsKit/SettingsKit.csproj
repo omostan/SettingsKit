@@ -5,19 +5,41 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+        <!-- Package-specific metadata -->
         <PackageId>Omostan.SettingsKit</PackageId>
-        <Version>1.0.5</Version>
-        <Authors>Stanley Omoregie</Authors>
-        <Company>SettingsKit</Company>
+        <Title>SettingsKit</Title>
         <Description>Version-tolerant, MVVM-friendly JSON settings library with auto-save, migration, backup, and encryption.</Description>
         <PackageTags>wpf settings json mvvm configuration encryption</PackageTags>
-        <RepositoryUrl>https://github.com/omostan/SettingsKit</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Title>SettingsKit</Title>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>1.0.6</Version>
+        <AssemblyVersion>1.0.6.0</AssemblyVersion>
+        <FileVersion>1.0.6.0</FileVersion>
+
+        <!-- Author and Company Information -->
+        <Authors>Stanley Omoregie</Authors>
+        <Company>Omotech Digital Solutions</Company>
+        <Copyright>Copyright © 2025 Omotech Digital Solutions</Copyright>
         <PackageProjectUrl>https://github.com/omostan/SettingsKit</PackageProjectUrl>
-        <PackageReleaseNotes>https://github.com/omostan/SettingsKit/releases/tag/v1.0.5</PackageReleaseNotes>
+        <RepositoryUrl>https://github.com/omostan/SettingsKit</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <!-- License Information -->
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <!-- Package Icon and README -->
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageIcon>SettingsKit.png</PackageIcon>
+        <PackageIcon>SettingsKit.svg</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <!-- Release Notes -->
+        <PackageProjectUrl>https://github.com/omostan/SettingsKit</PackageProjectUrl>
+        <PackageReleaseNotes>https://github.com/omostan/SettingsKit/releases/tag/v1.0.6</PackageReleaseNotes>
+
+        <!-- Additional Metadata -->
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,6 +48,8 @@
 
     <ItemGroup>
       <None Include="..\icon.png" Pack="true" PackagePath="\" />
+      <None Include="..\SettingsKit.png" Pack="true" PackagePath="\" />
+      <None Include="..\SettingsKit.svg" Pack="true" PackagePath="\" />
       <None Include="..\README.md" Pack="true" PackagePath="\" />
       <None Include="..\RELEASE_v1.0.5_NOTES.md" Pack="true" PackagePath="\" />
     </ItemGroup>

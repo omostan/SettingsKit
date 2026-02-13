@@ -1,4 +1,9 @@
-﻿﻿# SettingsKit
+﻿# SettingsKit Solution
+
+[![NuGet](https://img.shields.io/nuget/v/SettingsKit.svg)](https://www.nuget.org/packages/SettingsKit.Wpfkit/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/SettingsKit.svg)](https://www.nuget.org/packages/SettingsKit/)
+[![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **SettingsKit** is a lightweight, MVVM‑friendly, version‑tolerant JSON settings library for .NET applications.  
 It provides automatic persistence, schema migration, backup/restore, and optional encryption for sensitive fields — all with a clean, strongly‑typed API.
