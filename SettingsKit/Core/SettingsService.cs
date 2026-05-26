@@ -28,13 +28,15 @@ using SettingsKit.Security;
 
 namespace SettingsKit.Core;
 
-/// <summary>
+/// <summary>.,
 /// Provides loading, saving, migration, backup, and optional encryption
 /// for strongly typed settings models.
 /// </summary>
 /// <typeparam name="T">A settings model derived from <see cref="ObservableObject"/>.</typeparam>
 public class SettingsService<T> where T : ObservableObject, new()
 {
+    #region Fields
+
     private readonly string _filePath;
     private readonly int _currentVersion;
     private readonly List<ISettingsMigration<T>> _migrations = [];
@@ -45,10 +47,18 @@ public class SettingsService<T> where T : ObservableObject, new()
     private readonly SynchronizationContext? _synchronizationContext;
     private readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true };
 
+    #endregion Fields
+
+    #region Properties
+
     /// <summary>
     /// Gets the active settings instance.
     /// </summary>
     public T Settings { get; }
+
+    #endregion Properties
+
+    #region Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsService{T}"/> class.
@@ -68,10 +78,18 @@ public class SettingsService<T> where T : ObservableObject, new()
         Settings.PropertyChanged += OnSettingsChanged;
     }
 
+    #endregion Constructors
+
+    #region AddMigration
+
     /// <summary>
     /// Registers a migration step for upgrading settings.
     /// </summary>
     public void AddMigration(ISettingsMigration<T> migration) => _migrations.Add(migration);
+
+    #endregion AddMigration
+
+    #region Load
 
     /// <summary>
     /// Loads the settings from the file, applies migrations if needed, and decrypts encrypted properties.
@@ -112,6 +130,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion Load
+
+    #region CreateDefault
+
     /// <summary>
     /// Creates a default settings instance with the current version and persists it to disk.
     /// </summary>
@@ -133,6 +155,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         return defaultSettings;
     }
 
+    #endregion CreateDefault
+
+    #region Migrate
+
     /// <summary>
     /// Applies all applicable migrations to upgrade settings from their current version to the target version.
     /// </summary>
@@ -146,8 +172,7 @@ public class SettingsService<T> where T : ObservableObject, new()
         {
             migrated = false;
 
-            foreach (var m in _migrations
-                         .Where(m => m.FromVersion == settings.Version))
+            foreach (var m in _migrations.Where(m => m.FromVersion == settings.Version))
             {
                 settings.Version = m.ToVersion; // update version before migration
                 settings = m.Migrate(settings);
@@ -158,6 +183,10 @@ public class SettingsService<T> where T : ObservableObject, new()
 
         return settings;
     }
+
+    #endregion Migrate
+
+    #region OnSettingsChanged
 
     /// <summary>
     /// Handles changes to the settings properties and schedules a save operation.
@@ -171,6 +200,10 @@ public class SettingsService<T> where T : ObservableObject, new()
 
         ScheduleSave();
     }
+
+    #endregion OnSettingsChanged
+
+    #region ScheduleSave
 
     /// <summary>
     /// Schedules a debounced save operation by canceling any pending save and creating a new delayed task.
@@ -195,6 +228,10 @@ public class SettingsService<T> where T : ObservableObject, new()
             }
         }, token);
     }
+
+    #endregion ScheduleSave
+
+    #region SaveAsync
 
     /// <summary>
     /// Asynchronously saves the settings to disk with concurrency control and synchronization context marshaling.
@@ -243,6 +280,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion SaveAsync
+
+    #region SaveCore
+
     /// <summary>
     /// Saves the current settings to disk with backup, encryption, and atomic replace semantics.
     /// </summary>
@@ -285,6 +326,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion SaveCore
+
+    #region Backup
+
     /// <summary>
     /// Creates a backup of the current settings file before saving.
     /// </summary>
@@ -317,6 +362,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion Backup
+
+    #region TryRestoreBackup
+
     /// <summary>
     /// Attempts to restore settings from a backup file if the primary settings file is missing or corrupted.
     /// </summary>
@@ -344,6 +393,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion TryRestoreBackup
+
+    #region EncryptProperties
+
     /// <summary>
     /// Encrypts string properties on the settings instance that are marked with <see cref="EncryptedAttribute"/>.
     /// </summary>
@@ -368,6 +421,10 @@ public class SettingsService<T> where T : ObservableObject, new()
         }
     }
 
+    #endregion EncryptProperties
+
+    #region DecryptProperties
+
     /// <summary>
     /// Decrypts string properties on the settings instance that are marked with <see cref="EncryptedAttribute"/>.
     /// </summary>
@@ -391,4 +448,6 @@ public class SettingsService<T> where T : ObservableObject, new()
             Console.WriteLine(ex);
         }
     }
+
+    #endregion DecryptProperties
 }

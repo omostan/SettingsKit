@@ -34,8 +34,10 @@ namespace SettingsKit.Security;
 /// This class uses <see cref="DataProtectionScope.CurrentUser"/> which means encrypted data can only be decrypted
 /// by the same user account on the same machine.
 /// </remarks>
-public class EncryptionHelper
+public static class EncryptionHelper
 {
+    #region Encrypt
+
     public static string Encrypt(string plain)
     {
         var bytes = Encoding.UTF8.GetBytes(plain);
@@ -43,12 +45,20 @@ public class EncryptionHelper
         return Convert.ToBase64String(encrypted);
     }
 
+    #endregion Encrypt
+
+    #region Decrypt
+
     private static string Decrypt(string cipher)
     {
         var bytes = Convert.FromBase64String(cipher);
         var decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
         return Encoding.UTF8.GetString(decrypted);
     }
+
+    #endregion Decrypt
+
+    #region TryDecrypt
 
     /// <summary>
     /// Attempts to decrypt a value, but returns it unchanged if it's not valid Base-64 (i.e., not encrypted).
@@ -78,6 +88,10 @@ public class EncryptionHelper
         }
     }
 
+    #endregion TryDecrypt
+
+    #region IsValidBase64
+
     /// <summary>
     /// Validates whether a string is valid Base-64.
     /// </summary>
@@ -96,4 +110,6 @@ public class EncryptionHelper
         var buffer = maxDecodedLength == 0 ? Span<byte>.Empty : stackalloc byte[maxDecodedLength];
         return Convert.TryFromBase64String(trimmed, buffer, out _);
     }
+
+    #endregion IsValidBase64
 }
